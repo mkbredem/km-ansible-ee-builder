@@ -4,20 +4,32 @@
 ## Create Containerfile stuffs: `ansible-builder create`
 ## Build the EE: `ansible-builder build -t quay.io/yourname/yourimage:tag` - then podman push it
 
-version: 1
+version: 3
 
 build_arg_defaults:
   ANSIBLE_GALAXY_CLI_COLLECTION_OPTS: "-v"
   # Uncomment the following line to build on a supported RHEL 8 image
   # EE_BASE_IMAGE: "registry.redhat.io/ansible-automation-platform-21/ee-supported-rhel8"
+  #EE_BASE_IMAGE: "quay.io/ansible/awx-ee:23.2.0"
+
+images:
+  base_image:
+    #name: registry.access.redhat.com/ubi9/python-311:1-24.1695131442
+    name: quay.io/centos/centos:stream9
 
 # ansible_config: 'ansible.cfg'
 
 dependencies:
+  ansible_core:
+    package_pip: ansible-core==2.14.4
+  ansible_runner:
+    package_pip: ansible-runner
   galaxy: collections/requirements.yml
   python: requirements.txt
   system: bindep.txt
 
 additional_build_steps:
-  prepend: |
+  prepend_galaxy: |
+    RUN dnf update -y && dnf install git -y && dnf clean all
+  prepend_base: |
     RUN dnf update -y && dnf clean all && ansible --version
