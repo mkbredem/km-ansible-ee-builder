@@ -4,7 +4,12 @@
 ## Create Containerfile stuffs: `ansible-builder create`
 ## Build the EE: `ansible-builder build -t quay.io/yourname/yourimage:tag` - then podman push it
 
-version: 1
+version: 3
+
+images:
+  base_image:
+    #name: registry.access.redhat.com/ubi9/python-311:1-24.1695131442
+    name: quay.io/centos/centos:stream9
 
 build_arg_defaults:
   ANSIBLE_GALAXY_CLI_COLLECTION_OPTS: "-v"
@@ -14,14 +19,18 @@ build_arg_defaults:
 # ansible_config: 'ansible.cfg'
 
 dependencies:
+  ansible_core:
+    package_pip: ansible-core==2.14.4
+  ansible_runner:
+    package_pip: ansible-runner
   galaxy: collections/requirements.yml
   python: requirements.txt
   system: bindep.txt
 
 additional_build_steps:
-  prepend: |
+  prepend_base: |
     RUN dnf update -y && dnf clean all && ansible --version
-  append: |
+  append_final: |
     RUN curl -L https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz | tar -xvzf - -C /usr/local/bin/ oc kubectl && chmod 755 /usr/local/bin/oc && chmod 755 /usr/local/bin/kubectl \
      && curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash \
      && /usr/local/bin/helm repo add emberstack https://emberstack.github.io/helm-charts \
