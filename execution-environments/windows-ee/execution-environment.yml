@@ -31,5 +31,5 @@ dependencies:
 additional_build_steps:
   prepend_galaxy: |
     RUN dnf update -y && dnf install git -y && dnf clean all
-  prepend_base: |
+  append_base: |
     RUN dnf update -y && dnf clean all && ansible --version
