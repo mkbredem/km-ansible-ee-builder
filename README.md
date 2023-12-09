@@ -10,11 +10,11 @@ There is a base/template GitHub Action in this repository under `.github/workflo
 
 ## Available Execution Environments
 
-- Default EE - `quay.io/kenmoini/ansible-default-ee` - An Execution Environment with some basic collections, a good place to get started. 
-- Kubernetes EE - `quay.io/kenmoini/ansible-k8s-ee` - For use when automating against Kubernetes/OpenShift clusters
-- Nutanix EE - `quay.io/kenmoini/ansible-nutanix-ee` - A good base for automating Nutanix via Prism Central
-- Windows EE - `quay.io/kenmoini/ansible-windows-ee` - A basic Execution Environment for automating Windows targets
-- ZTP EE - `quay.io/kenmoini/ansible-ztp-ee` - An EE that can be used for OpenShift Zero Touch Provisioning practices
+- **Default EE** - `quay.io/kenmoini/ansible-default-ee` - An Execution Environment with some basic collections, a good place to get started. 
+- **Kubernetes EE** - `quay.io/kenmoini/ansible-k8s-ee` - For use when automating against Kubernetes/OpenShift clusters
+- **Nutanix EE** - `quay.io/kenmoini/ansible-nutanix-ee` - A good base for automating Nutanix via Prism Central
+- **Windows EE** - `quay.io/kenmoini/ansible-windows-ee` - A basic Execution Environment for automating Windows targets
+- **ZTP EE** - `quay.io/kenmoini/ansible-ztp-ee` - An EE that can be used for OpenShift Zero Touch Provisioning practices
 
 ## TODO
 
